@@ -23,14 +23,16 @@ class AddAddress: UIViewController,CLLocationManagerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.requestWhenInUseAuthorization()
+        
+        
        // (navigationController?.navigationBarHidden = false)!
         
         
     }
     @IBAction func locateMe(sender: AnyObject) {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         let geoCoder = CLGeocoder()
         let placemark: AnyObject
         let error: NSError
@@ -85,6 +87,12 @@ class AddAddress: UIViewController,CLLocationManagerDelegate {
     try! realm.write {
             realm.add(addAddressNew)
         }
+        ref.observeAuthEventWithBlock({ authData in
+            
+        let usersRef = self.ref.childByAppendingPath("users/uid/" + authData.uid + "/address")
+        let userlocation = ["address": ["street": self.streetField.text!, "city": self.cityField.text!, "state": self.stateField.text!, "zipcode": self.zipField.text!]]
+        usersRef.setValue(userlocation)
+            })
         self.dismissViewControllerAnimated(true, completion: nil)
         print(addAddressNew)
     }

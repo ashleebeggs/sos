@@ -38,6 +38,8 @@ class ShowAddress: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         AddressField.dataSource = self
         AddressField.delegate = self
+        
+        self.AddressField.reloadData()
     }
     
     func getData(){

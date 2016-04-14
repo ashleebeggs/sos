@@ -52,7 +52,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         navigationItem.title = "Hangover"
        (navigationController?.navigationBarHidden = false)!
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "saveToFirebase")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "goNow")
         getData()
         getCount()
         aggregateLabelCount()
@@ -65,8 +65,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func goNow(){
         //saveToFirebase()
-        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConfirmView") as! ConfirmViewController
-        self.navigationController?.pushViewController(secondViewController, animated: true)
+        //let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConfirmView") as! ConfirmViewController
+        //self.navigationController?.pushViewController(secondViewController, animated: true)
+        self.performSegueWithIdentifier("alertSegue", sender: self)
     }
     override func viewWillDisappear(animated: Bool)
     {
@@ -111,13 +112,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let num = myItems.count
         
         myItemsarrayPrice.removeAll()
-        myItemsarray.removeAll()
+        //myItemsarray.removeAll()
         for var i = 0; i < num; i++ {
             let intAmount = Double(myItems[i].price)
             if intAmount != nil{
                 
-            myItemsarray.append(["name": myItems[i].name, "price": myItems[i].price, "type": myItems[i].type, "category": myItems[i].category])
-            myItemsarrayPrice.append(intAmount!)
+            //myItemsarray.append(["name": myItems[i].name, "price": myItems[i].price, "type": myItems[i].type, "category": myItems[i].category])
+            //myItemsarrayPrice.append(intAmount!)
                 
                
             } else {print("im nil") }
@@ -144,19 +145,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     func saveToFirebase(){
-        print(myItemsarray, "these are the items that will be saved")
-        let profileInfo = realm.objects(Items)
-        let profileID = profileInfo[0].fbname
-        print(profileID)
-                
-        let usersRef = ref.childByAppendingPath("users/uid/" + profileID + "/hangover")
-        
-        let items = ["item": myItemsarray]
-        print(items)
-            usersRef.setValue(items)
-            //print("setting something long here so i can ssee it", items)
-        
-        //ALERT
+                //ALERT
         let alertController = UIAlertController(title: "Order", message: "Do you want to order this now?", preferredStyle: .Alert)
         
         // Create the actions

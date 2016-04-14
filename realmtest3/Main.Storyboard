@@ -101,9 +101,6 @@
                                 <state key="normal" title="Breakup">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="56B-kM-Co5" kind="show" id="ze7-Uk-lcE"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rNV-4d-wze">
                                 <rect key="frame" x="0.0" y="499" width="160" height="101"/>
@@ -288,7 +285,8 @@
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26k-XW-XHH">
                                         <rect key="frame" x="138" y="60" width="325" height="88"/>
-                                        <string key="text">Choose what makes you feel better when you're sick, hungover, hangry etcbetter when you’re sick, </string>
+                                        <string key="text">Choose what makes you feel better when you're sick, hungover, hangry etc
+better when you’re sick, </string>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -736,7 +734,6 @@
                         <outlet property="TableField3" destination="dtL-k1-UJf" id="Jww-fb-NMP"/>
                         <outlet property="aggregateLabel3" destination="OZx-Xb-6Q6" id="QMP-xa-a60"/>
                         <outlet property="totalCount3" destination="As1-JT-SQj" id="G9s-dj-iFP"/>
-                        <segue destination="56B-kM-Co5" kind="show" identifier="buSegue" id="aSK-Rr-dh7"/>
                         <segue destination="jR2-pn-xzy" kind="show" identifier="buNoSegue" id="8uX-SN-fne"/>
                     </connections>
                 </viewController>
@@ -1059,7 +1056,7 @@
                                         <rect key="frame" x="0.0" y="28" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="d3v-9q-Zd3" id="rsD-h2-bUD">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hgo-qR-hGI">
@@ -1398,7 +1395,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="8uX-SN-fne"/>
-        <segue reference="aSK-Rr-dh7"/>
+        <segue reference="YJy-MT-nq2"/>
         <segue reference="p4b-Ix-8MT"/>
         <segue reference="l21-FT-bA1"/>
     </inferredMetricsTieBreakers>
