@@ -7,21 +7,12 @@
 //
 
 import UIKit
-import Stripe
+import Braintree
 
-class PaymentViewController: UIViewController, STPPaymentCardTextFieldDelegate {
-    let paymentTextField = STPPaymentCardTextField()
-
+class PaymentViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad();
-        paymentTextField.frame = CGRectMake(15, 50, CGRectGetWidth(self.view.frame) - 30, 44)
-        paymentTextField.delegate = self
-        view.addSubview(paymentTextField)
-    }
-    
-    func paymentCardTextFieldDidChange(textField: STPPaymentCardTextField) {
-        // Toggle navigation, for example
-        //saveButton.enabled = textField.isValid
+       
     }
     
     

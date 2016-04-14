@@ -28,6 +28,9 @@ class ShowAddress: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @IBAction func sendBack(sender: AnyObject) {
        self.dismissViewControllerAnimated(true, completion: nil)
     }
+    @IBAction func cancelAddress(sender: AnyObject) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()

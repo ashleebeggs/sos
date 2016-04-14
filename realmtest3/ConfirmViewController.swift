@@ -33,6 +33,7 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
         getAddress()
         aggregateLabelCount()
         
+        
         print(datasource)
         
         TableFieldConfirm.dataSource = self
@@ -47,8 +48,6 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
             phoneNumber.placeholder = "Phone number"
         }
         
-        //phoneNumber.keyboardType = .NumberPad
-                    
     }
     
     @IBAction func orderButton(sender: AnyObject) {
@@ -141,7 +140,9 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func address(sender: AnyObject) {
         //SHOWING THE ADDRESSES SAVED IN REALM
         let showAddressController = storyboard?.instantiateViewControllerWithIdentifier("showViewController") as! ShowAddress
+        // ASSIGNING THE DELEGATE TO PASS DATA BACK
         showAddressController.mydelegate = self
+        
         self.presentViewController(showAddressController, animated: true, completion: nil)
         
     }
@@ -223,6 +224,14 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {}
+    
+    
+    @IBAction func addressFunc(sender: AnyObject) {
+        let showAddressController = storyboard?.instantiateViewControllerWithIdentifier("showAddressContainer") as! ShowAddress
+        showAddressController.mydelegate = self
+        self.presentViewController(showAddressController, animated: true, completion: nil)
+        
+    }
    
     func sendBackChoice(aStreet: String){
         //DISPLAY THE SELECTED ADDRESS CHOSEN FROM SHOW ADDRESS VIEW CONTROLLER
