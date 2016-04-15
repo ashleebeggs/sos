@@ -106,24 +106,36 @@ class ViewController: UIViewController {
                                         let itemList = ItemsList2()
                                         let toDeleteList = self.realm.objects(ItemsList2)
                                         //CLEAR OUT REALM
-                                        try! self.realm.write {
-                                            self.realm.delete(toDeleteList)
+                                        do {
+                                            try self.realm.write() {
+                                                self.realm.delete(toDeleteList)
+                                            }
+                                        } catch {
+                                            print("Something went wrong!")
                                         }//close realm
                                         
                                         let profile = Items()
                                         let toDelete = self.realm.objects(Items)
                                         //CLEAR OUT REALM
-                                        try! self.realm.write {
-                                            self.realm.delete(toDelete)
+                                        do {
+                                            try self.realm.write() {
+                                                 self.realm.delete(toDelete)
+                                            }
+                                        } catch {
+                                            print("Something went wrong!")
                                         }//close realm
                                         
                                         profile.fbemail = emailName as! String
                                         profile.fbname = authData.uid
                                         //ADDING EMAIL, UID TO REALM
-                                        try! self.realm.write {
-                                            print("added here")
-                                            self.realm.add(profile)
-                                        } //close realm
+                                        do {
+                                            try self.realm.write() {
+                                                 self.realm.add(profile)
+                                            }
+                                        } catch {
+                                            print("Something went wrong!")
+                                        }//close realm
+
                                         //ASSIGNING FIREBASE OBJECTS TO VARIABLES
                                         self.refPATH.observeEventType(.ChildAdded, withBlock: { snap in
                                             let objc = snap.value.objectForKey("category") as? String
@@ -138,16 +150,21 @@ class ViewController: UIViewController {
                                             ItemsRealm.name = objn!
                                             ItemsRealm.price = objp!
                                             //ADDING ITEMS FROM FIREBASE TO REALM
-                                            try! self.realm.write {
-                                                self.realm.add(ItemsRealm)
-                                                print(ItemsRealm)
-                                            }
+                                            do {
+                                                try self.realm.write() {
+                                                    self.realm.add(ItemsRealm)
+                                                }
+                                            } catch {
+                                                print("Something went wrong!")
+                                            }//close realm
                                             
                                             //IF THERE IS NO DATA IN FIREBASE
                                             if snap.value is NSNull {
                                                 print("data is null")
                                             }
                                             
+                                            }, withCancelBlock: { error in
+                                                print(error.description)
                                         })//close observeeventtype
 
                                     }
@@ -162,25 +179,38 @@ class ViewController: UIViewController {
                                         let profile = Items()
                                         let toDelete = self.realm.objects(Items)
                                         //CLEARING OUT REALM
-                                        try! self.realm.write {
-                                            self.realm.delete(toDelete)
+                                        do {
+                                            try self.realm.write() {
+                                                self.realm.delete(toDelete)
+                                            }
+                                        } catch {
+                                            print("Something went wrong!")
                                         }//close realm
                                         
                                         profile.fbemail = emailName as! String
                                         profile.fbname = authData.uid
                                         //ADDING EMAIL, UID TO REALM
-                                        try! self.realm.write {
-                                            print("added here")
-                                            self.realm.add(profile)
-                                        } //close realm
+                                        do {
+                                            try self.realm.write() {
+                                                self.realm.add(profile)
+                                            }
+                                        } catch {
+                                            print("Something went wrong!")
+                                        }//close realm
+                                        
                                         
                                         //DOWNLOAD ITEMS DATA
                                         let itemList = ItemsList2()
                                         let toDeleteList = self.realm.objects(ItemsList2)
                                         //CLEARING OUT REALM
-                                        try! self.realm.write {
-                                            self.realm.delete(toDeleteList)
+                                        do {
+                                            try self.realm.write() {
+                                                self.realm.delete(toDeleteList)
+                                            }
+                                        } catch {
+                                            print("Something went wrong!")
                                         }//close realm
+                                        
                                         //ASSOCIATING FIREBASE OBJECTS WITH VARIABLES
                                         self.refPATH.observeEventType(.ChildAdded, withBlock: { snap in
                                             let objc = snap.value.objectForKey("category") as? String
@@ -195,10 +225,14 @@ class ViewController: UIViewController {
                                             ItemsRealm.name = objn!
                                             ItemsRealm.price = objp!
                                             //ADDING VARIABLES TO REALM
-                                            try! self.realm.write {
-                                                self.realm.add(ItemsRealm)
-                                                print(ItemsRealm)
-                                            }
+                                            do {
+                                                try self.realm.write() {
+                                                    self.realm.add(ItemsRealm)
+                                                }
+                                            } catch {
+                                                print("Something went wrong!")
+                                            }//close realm
+                                           
                                             //IF THERE IS NO DATA
                                             if snap.value is NSNull {
                                                 print("no items")
@@ -210,6 +244,8 @@ class ViewController: UIViewController {
                                         
                                     }// close else
                                     
+                                    }, withCancelBlock: { error in
+                                        print(error.description)
                                 }) // close observesingleeventoftype
                             } // close else
                     }) //close authwithoauthprovider
@@ -221,6 +257,8 @@ class ViewController: UIViewController {
         //IF A TOKEN EXISTS ALREADY
         else
         {
+            //let scoresRef = Firebase(url:"https://sosapp2.firebaseio.com/items")
+            //scoresRef.keepSynced(true)
             //CHECKING FOR FIREBASE DATA
             ref.observeAuthEventWithBlock({ authData in
                 // IF THERE IS DATA
@@ -229,8 +267,12 @@ class ViewController: UIViewController {
                     let itemList = ItemsList2()
                     let toDeleteList = self.realm.objects(ItemsList2)
                     //CLEARING REALM
-                    try! self.realm.write {
-                        self.realm.delete(toDeleteList)
+                    do {
+                        try self.realm.write() {
+                           self.realm.delete(toDeleteList)
+                        }
+                    } catch {
+                        print("Something went wrong!")
                     }//close realm
                     
                     //GETTING FIREBASE ITEMS SEND TO REALM ITEMSLIST
@@ -247,24 +289,35 @@ class ViewController: UIViewController {
                         ItemsRealm.name = objn!
                         ItemsRealm.price = objp!
                         //ADDING TO REALM
-                        try! self.realm.write {
-                            self.realm.add(ItemsRealm)
-                           // print(ItemsRealm)
-                        }
+                        do {
+                            try self.realm.write() {
+                                self.realm.add(ItemsRealm)
+                            }
+                        } catch {
+                            print("Something went wrong!")
+                        }//close realm
+                        
                         //IF THERE IS NO DATA
                         if snap.value is NSNull {
                             print("there is no items")
                         }
                         
+                        }, withCancelBlock: { error in
+                            print(error.description)
                     })//close observeeventtype
                     
                     //ERASING HANGOVER
                     let hangover = MyItemsRealm()
                     let toDeleteh = self.realm.objects(MyItemsRealm)
                     //CLEARING REALM
-                    try! self.realm.write {
-                        self.realm.delete(toDeleteh)
+                    do {
+                        try self.realm.write() {
+                            self.realm.delete(toDeleteh)
+                        }
+                    } catch {
+                        print("Something went wrong!")
                     }//close realm
+                    
                     
                     //GETTING FIREBASE ITEMS SEND TO REALM HANGOVER
                     let usersh = self.refAUTH.childByAppendingPath("users/uid/" + authData.uid + "/hangover/item")
@@ -280,25 +333,35 @@ class ViewController: UIViewController {
                         myItemsRealm.name = objn!
                         myItemsRealm.price = objp!
                         //ADDING TO REALM
-                        try! self.realm.write {
-                            self.realm.add(myItemsRealm)
-                            print(myItemsRealm)
-                        }
+                        do {
+                            try self.realm.write() {
+                               self.realm.add(myItemsRealm)
+                            }
+                        } catch {
+                            print("Something went wrong!")
+                        }//close realm
                         //IF NO DATA
                         if snap.value is NSNull {
                             // The value is null
                             print("nothing here in hangover")
                         }
                         
+                        }, withCancelBlock: { error in
+                            print(error.description)
                     })//close observeeventtype
                     
                     //ERASING SICK
                     let sick = MySickItemsRealm()
                     let toDeletes = self.realm.objects(MySickItemsRealm)
                     //CLEARING REALM
-                    try! self.realm.write {
-                        self.realm.delete(toDeletes)
+                    do {
+                        try self.realm.write() {
+                            self.realm.delete(toDeletes)
+                        }
+                    } catch {
+                        print("Something went wrong!")
                     }//close realm
+                   
 
                     //GETTING FIREBASE ITEMS SEND TO REALM SICK
                     let userss = self.refAUTH.childByAppendingPath("users/uid/" + authData.uid + "/sick/item")
@@ -316,25 +379,36 @@ class ViewController: UIViewController {
                         mySickItemsRealm.name = objn!
                         mySickItemsRealm.price = objp!
                         //ADDING TO REALM
-                        try! self.realm.write {
-                            self.realm.add(mySickItemsRealm)
-                            print(mySickItemsRealm)
-                        }
+                        do {
+                            try self.realm.write() {
+                                self.realm.add(mySickItemsRealm)
+                            }
+                        } catch {
+                            print("Something went wrong!")
+                        }//close realm
+                        
                         //NO SICK ITEMS
                         if snap.value is NSNull {
                             // The value is null
                             print("nothing here in sick")
                         }
                         
+                        }, withCancelBlock: { error in
+                            print(error.description)
                     })//close observeeventtype
                     
                     //ERASING BREAKUP
                     let bu = MyBUItemsRealm()
                     let toDeleteb = self.realm.objects(MyBUItemsRealm)
                     //CLEARING REALM
-                    try! self.realm.write {
-                        self.realm.delete(toDeleteb)
+                    do {
+                        try self.realm.write() {
+                            self.realm.delete(toDeleteb)
+                        }
+                    } catch {
+                        print("Something went wrong!")
                     }//close realm
+                    
                     
                     //GETTING FIREBASE ITEMS SEND TO REALM SICK
                     let usersb = self.refAUTH.childByAppendingPath("users/uid/" + authData.uid + "/breakup/item")
@@ -352,16 +426,22 @@ class ViewController: UIViewController {
                         myBUItemsRealm.name = objn!
                         myBUItemsRealm.price = objp!
                         //ADDING TO BREAKUP REALM
-                        try! self.realm.write {
-                            self.realm.add(myBUItemsRealm)
-                            print(myBUItemsRealm)
-                        }
+                        do {
+                            try self.realm.write() {
+                                self.realm.add(myBUItemsRealm)
+                            }
+                        } catch {
+                            print("Something went wrong!")
+                        }//close realm
+
                         //NO DATA
                         if snap.value is NSNull {
                             // The value is null
                             print("nothing here in breakup")
                         }
                         
+                        }, withCancelBlock: { error in
+                            print(error.description)
                     })//close observeeventtype
 
                     //TRANSITION TO NEXT PAGE
