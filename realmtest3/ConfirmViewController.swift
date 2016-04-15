@@ -71,21 +71,38 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
                     
                     //TAKING THE ITEMS SELECTED AND ADDING THEM TO FIREBASE
                     let items = ["item": self.myItemsarray]
-                    usersRef.setValue(items)
+                    usersRef.setValue(items, withCompletionBlock: {
+                        (error:NSError?, ref:Firebase!) in
+                        if (error != nil) {
+                            print("Data could not be saved.")
+                        } else {
+                            print("Data saved successfully!")
+                        }
+                    })
+                   
 
                     //CHECKING FOR A SAVED PHONE NUMBER
                     if phone.phone == ""{
                       //CLEARING OUT THE REALM DATA
-                        try! self.realm.write {
-                            self.realm.delete(toDelete)
+                        do {
+                            try self.realm.write() {
+                                self.realm.delete(toDelete)
+                            }
+                        } catch {
+                            print("Something went wrong!")
                         }//close realm
+                        
                         
                         //RESAVING PHONE NUMBER, EMAIL, UID
                         phone.phone = self.phoneNumber.text!
                         phone.fbemail = authData.providerData["email"] as! String
                         phone.fbname = authData.uid as String
-                        try! self.realm.write {
-                       self.realm.add(phone)
+                        do {
+                            try self.realm.write() {
+                                self.realm.add(phone)
+                            }
+                        } catch {
+                            print("Something went wrong!")
                         }//close realm
                     }//close phone.phone
                     else{
@@ -158,6 +175,7 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
         //ADDING ALL THE PRICES TOGETHER TO GET THE TOTAL
         let myItems = realm.objects(MyItemsRealm)
             if myItems.count != 0{
+            print(myItemsarrayPrice, "this is whats in myitemsarrayprice")
             let numbers = [Double](myItemsarrayPrice)
             let total = numbers.reduce(0, combine: +)
                 totalAmount.text = String("Total: ") + String(total)
@@ -214,7 +232,7 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
                 var myItemsArrayPrice =  myItemsarrayPrice.append(intAmount!)
                 //GOING THROUGH ALL THE ITEMS AND REFORMATTING FOR FIREBASE
                 myItemsarray.append(["name": myItems[i].name, "price": myItems[i].price, "type": myItems[i].type, "category": myItems[i].category])
-                myItemsarrayPrice.append(intAmount!)
+               
 
             } else {print("im nil") }
         }

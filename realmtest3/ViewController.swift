@@ -47,7 +47,15 @@ class ViewController: UIViewController {
         //ITEMS TO ADD TO FIREBASE
         let item = ["0": ["name": "coke", "price": "1.99", "type": "drink", "category": "hangover"], "1": ["name": "water", "price": "0.99", "type": "drink", "category": "hangover"], "2": ["name": "chips", "price": "3.99", "type": "snack", "category": "hangover"], "3": ["name": "gatorade", "price": "0.99", "type": "drink", "category": "hangover"], "4": ["name": "gatorade", "price": "1.99", "type": "drink", "category": "sick"], "5": ["name": "ice cream", "price": "4.99", "type": "snack", "category": "sick"], "6": ["name": "ice cream", "price": "4.99", "type": "snack", "category": "breakup"], "7": ["name": "lemonade", "price": "3.99", "type": "drink", "category": "breakup"]]
         //ADDING TO FIREBASE
-        refPATH.setValue(item)
+        refPATH.setValue(item, withCompletionBlock: {
+            (error:NSError?, ref:Firebase!) in
+            if (error != nil) {
+                print("Data could not be saved.")
+            } else {
+                print("Data saved successfully!")
+            }
+        })
+
         
         super.viewDidLoad()
         
@@ -174,7 +182,15 @@ class ViewController: UIViewController {
                                         let usersRef = self.refAUTH.childByAppendingPath("users/uid/" + authData.uid)
                                         let usertest = ["email": emailName, "uid": authData.uid]
                                         //ADDING EMAIL, UID TO FIREBASE
-                                        usersRef.setValue(usertest)
+                                        usersRef.setValue(usertest, withCompletionBlock: {
+                                            (error:NSError?, ref:Firebase!) in
+                                            if (error != nil) {
+                                                print("Data could not be saved.")
+                                            } else {
+                                                print("Data saved successfully!")
+                                            }
+                                        })
+
                                         
                                         let profile = Items()
                                         let toDelete = self.realm.objects(Items)
@@ -257,8 +273,7 @@ class ViewController: UIViewController {
         //IF A TOKEN EXISTS ALREADY
         else
         {
-            //let scoresRef = Firebase(url:"https://sosapp2.firebaseio.com/items")
-            //scoresRef.keepSynced(true)
+            
             //CHECKING FOR FIREBASE DATA
             ref.observeAuthEventWithBlock({ authData in
                 // IF THERE IS DATA

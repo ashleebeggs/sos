@@ -197,9 +197,14 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         myItemsRealm.name = itemList.name
         myItemsRealm.price = itemList.price
         //ADDING TO REALM LIST
-        try! realm.write {
-            realm.add(myItemsRealm)
-        }
+        do {
+            try realm.write() {
+                realm.add(myItemsRealm)
+            }
+        } catch {
+            print("Something went wrong!")
+        }//close realm
+        
         //FILTERING LIST
         let filterMyItemsRealm = NSPredicate(format: "name = '" + itemList.name + "'")
         datasource2 = realm.objects(MyItemsRealm).filter(filterMyItemsRealm)
@@ -228,11 +233,13 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let deletedNotifications = realm.objects(MyItemsRealm).filter(filterBroadMyItemsRealm)
                 let filterMyItemsRealm = NSPredicate(format: "name = '" + deletedValue + "'")
                 //REMOVING DELETED ITEMS FROM REALM
-                try! realm.write {
-                    
-                    print(deletedNotifications)
-                    realm.delete(deletedNotifications)
-                }
+                do {
+                    try realm.write() {
+                        realm.delete(deletedNotifications)
+                    }
+                } catch {
+                    print("Something went wrong!")
+                }//close realm
                 
                 datasource2 = realm.objects(MyItemsRealm).filter(filterMyItemsRealm)
                 let stringDatasource2 = String(datasource2.count)
