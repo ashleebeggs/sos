@@ -49,25 +49,26 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //SETTING NAV BAR
         navigationItem.title = "Hangover"
        (navigationController?.navigationBarHidden = false)!
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .Plain, target: self, action: "goNow")
+        
         getData()
         getCount()
         aggregateLabelCount()
         totalLabelCount()
+        //SETTING TABLE VIEW
         TableField.dataSource = self
         TableField.delegate = self
         
-        // Do any additional setup after loading the view.
     }
     
     func goNow(){
         //saveToFirebase()
-        //let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConfirmView") as! ConfirmViewController
-        //self.navigationController?.pushViewController(secondViewController, animated: true)
-        self.performSegueWithIdentifier("alertSegue", sender: self)
+        let secondViewController = self.storyboard?.instantiateViewControllerWithIdentifier("ConfirmView") as! ConfirmViewController
+        self.navigationController?.pushViewController(secondViewController, animated: true)
+        //self.performSegueWithIdentifier("alertSegue", sender: self)
     }
     override func viewWillDisappear(animated: Bool)
     {
@@ -82,25 +83,23 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func getData(){
+        //FILTERING REALM FOR HANGOVER ONLY ITEMS
         let test = NSPredicate(format: "type = 'drink' AND category = 'hangover'")
          datasource = realm.objects(ItemsList2).filter(test)
-        
-       // print(datasource)
-    
     }
 
     
     func totalLabelCount(){
         let myItems = realm.objects(MyItemsRealm)
-       // print(myItems, "this is whats in label count")
+        //LOOPING THROUGH TO ADD TOGETHER PRICES
         if myItems.count != 0{
             print(myItemsarrayPrice, "this is whats in myitemsarrayprice")
             let numbers = [Double](myItemsarrayPrice)
             let total = numbers.reduce(0, combine: +)
             totalCount.text = String("Total: ") + String(total)
-            print(totalCount.text, "this is the total", total)
+           // print(totalCount.text, "this is the total", total)
         }
-            
+          //NOTHING TO LOOP THROUGH
         else{
             totalCount.text = "0"
         }
@@ -110,22 +109,17 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func getCount(){
         let myItems = realm.objects(MyItemsRealm)
         let num = myItems.count
-        
+        //CLEARING OUT ARRAY
         myItemsarrayPrice.removeAll()
-        //myItemsarray.removeAll()
+        //LOOPING THROUGH ADDING TO ARRAY
         for var i = 0; i < num; i++ {
             let intAmount = Double(myItems[i].price)
             if intAmount != nil{
-                
             //myItemsarray.append(["name": myItems[i].name, "price": myItems[i].price, "type": myItems[i].type, "category": myItems[i].category])
-            //myItemsarrayPrice.append(intAmount!)
-                
-               
+            myItemsarrayPrice.append(intAmount!)
             } else {print("im nil") }
             
-           // print(myItemsarray)
-            
-        }
+        }//close forloop
         print(myItemsarrayPrice)
         
     }
@@ -144,7 +138,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
 
-    func saveToFirebase(){
+    /*func saveToFirebase(){
                 //ALERT
         let alertController = UIAlertController(title: "Order", message: "Do you want to order this now?", preferredStyle: .Alert)
         
@@ -166,10 +160,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // Present the controller
         self.presentViewController(alertController, animated: true, completion: nil)
-
-
-        
-    }
+    }*/
     
     
    
@@ -184,9 +175,11 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let itemList = datasource[indexPath.row]
         cell.updateView(itemList.name)
         
+        //FILTERING ITEMS
         let filterMyItemsRealm = NSPredicate(format: "name = '" + itemList.name + "'")
         datasource2 = realm.objects(MyItemsRealm).filter(filterMyItemsRealm)
         let stringDatasource2 = String(datasource2.count)
+        //UPDAINTG COUNT
         cell.updateCount(stringDatasource2)
         return cell
     }
@@ -195,35 +188,30 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //var myItemsRealm =  myItems.append(datasource[indexPath.row])
-        
-        //let num = myItemsarray.count
-        //var numOfItems = 0
         let cell = self.TableField?.dequeueReusableCellWithIdentifier("ItemRowCellID") as! ItemRow
-
+        //GETTING INDEX ROW ASSOCIATING TO REALM OBJECT
         let myItemsRealm = MyItemsRealm()
         let itemList = datasource[indexPath.row]
         myItemsRealm.category = itemList.category
         myItemsRealm.type = itemList.type
         myItemsRealm.name = itemList.name
         myItemsRealm.price = itemList.price
+        //ADDING TO REALM LIST
         try! realm.write {
             realm.add(myItemsRealm)
         }
+        //FILTERING LIST
         let filterMyItemsRealm = NSPredicate(format: "name = '" + itemList.name + "'")
         datasource2 = realm.objects(MyItemsRealm).filter(filterMyItemsRealm)
         print(datasource2, datasource2.count, "im in myitemsrealm after push")
+        //KEEPING COUNT UPDATED
         let stringDatasource2 = String(datasource2.count)
         cell.updateCount(stringDatasource2)
         
         getCount()
         aggregateLabelCount()
         totalLabelCount()
-        print(myItemsRealm, "this is whats in the index row")
         self.TableField.reloadData()
-        
-        
-        //print(myItemsRealm)
         
            }
     
@@ -232,21 +220,21 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
      func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         let cell = self.TableField?.dequeueReusableCellWithIdentifier("ItemRowCellID") as! ItemRow
         
-       let deletedValue = datasource[indexPath.row].name
+        let deletedValue = datasource[indexPath.row].name
+        //IF DELETING ROW
                if editingStyle == .Delete {
-
+                //FILTER
                 let filterBroadMyItemsRealm = NSPredicate(format: "name = '" + deletedValue + "' AND category = 'hangover'")
                 let deletedNotifications = realm.objects(MyItemsRealm).filter(filterBroadMyItemsRealm)
                 let filterMyItemsRealm = NSPredicate(format: "name = '" + deletedValue + "'")
+                //REMOVING DELETED ITEMS FROM REALM
                 try! realm.write {
                     
                     print(deletedNotifications)
                     realm.delete(deletedNotifications)
                 }
                 
-                
                 datasource2 = realm.objects(MyItemsRealm).filter(filterMyItemsRealm)
-                //print(datasource2, datasource2.count, "im in myitemsrealm after push")
                 let stringDatasource2 = String(datasource2.count)
                 cell.updateCount(stringDatasource2)
                 
@@ -256,10 +244,6 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 self.TableField.reloadData()
                 
-        } else {
-            
-        }
-    }
-    
-   
+        } else {}
+    }//close if
 }
