@@ -60,6 +60,7 @@
                     <navigationItem key="navigationItem" id="lOW-vz-zOv"/>
                     <connections>
                         <segue destination="D5O-du-RYo" kind="show" identifier="showNew" id="uIr-l1-ZMH"/>
+                        <segue destination="vxX-gh-0Ct" kind="show" identifier="onboard" id="6t1-k4-yeZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PB6-dF-Bh5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -276,28 +277,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KLB-Sg-pQR">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="207"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26k-XW-XHH">
-                                        <rect key="frame" x="138" y="60" width="325" height="88"/>
-                                        <string key="text">Choose what makes you feel better when you're sick, hungover, hangry etc
-better when you’re sick, </string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.20392156859999999" green="0.98431372549999996" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="600" id="HTq-Z2-nzj"/>
-                                    <constraint firstAttribute="height" constant="207" id="b8S-KP-7Cn"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H9z-AF-PqC">
                                 <rect key="frame" x="0.0" y="204" width="600" height="207"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Enter your details for speedy deliveries" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95m-nu-ouK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Enter your details for speedy deliveries" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="95m-nu-ouK">
                                         <rect key="frame" x="144" y="83" width="312" height="41"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -306,14 +289,13 @@ better when you’re sick, </string>
                                 </subviews>
                                 <color key="backgroundColor" red="0.45098039220000002" green="0.086274509799999996" blue="0.70196078429999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="600" id="MtB-8L-p5F"/>
-                                    <constraint firstAttribute="height" constant="207" id="YwG-qa-kP0"/>
+                                    <constraint firstAttribute="height" constant="207" id="7gX-wm-4dG"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BcO-5Q-CxP">
                                 <rect key="frame" x="0.0" y="407" width="600" height="207"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Feel better" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cay-4R-qpK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Feel better" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cay-4R-qpK">
                                         <rect key="frame" x="264" y="93" width="83" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -324,44 +306,59 @@ better when you’re sick, </string>
                                         <state key="normal" title="Got it"/>
                                         <connections>
                                             <action selector="skipButton:" destination="vxX-gh-0Ct" eventType="touchUpInside" id="9HG-1O-mVu"/>
+                                            <segue destination="jR2-pn-xzy" kind="show" id="Luz-gv-VyQ"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="0.93725490199999995" blue="0.4549019608" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="207" id="0hu-f1-Kjx"/>
-                                    <constraint firstItem="dhn-2n-mbL" firstAttribute="leading" secondItem="BcO-5Q-CxP" secondAttribute="leading" constant="23" id="Rdi-Wu-wz0"/>
-                                    <constraint firstAttribute="bottom" secondItem="dhn-2n-mbL" secondAttribute="bottom" constant="29" id="hog-Nj-GRu"/>
-                                    <constraint firstAttribute="trailing" secondItem="dhn-2n-mbL" secondAttribute="trailing" constant="539" id="lYm-cm-D8X"/>
-                                    <constraint firstAttribute="width" constant="600" id="ufr-Sz-lvF"/>
+                                    <constraint firstAttribute="height" constant="207" id="4Er-4t-kcV"/>
+                                    <constraint firstAttribute="bottom" secondItem="dhn-2n-mbL" secondAttribute="bottom" constant="29" id="qV1-Vx-xH3"/>
+                                    <constraint firstItem="dhn-2n-mbL" firstAttribute="leading" secondItem="BcO-5Q-CxP" secondAttribute="leading" constant="23" id="uEx-bu-R8Y"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KLB-Sg-pQR">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="207"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Choose what makes you feel better when you're sick, hungover, hangry etc" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="26k-XW-XHH">
+                                        <rect key="frame" x="139" y="60" width="322" height="88"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.20392156859999999" green="0.98431372549999996" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="207" id="Ee3-Xb-2Iw"/>
+                                    <constraint firstAttribute="trailing" secondItem="26k-XW-XHH" secondAttribute="trailing" constant="139" id="NXt-Ev-Wku"/>
+                                    <constraint firstItem="26k-XW-XHH" firstAttribute="leading" secondItem="KLB-Sg-pQR" secondAttribute="leading" constant="139" id="YUI-xx-qv1"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="top" secondItem="S9t-Nj-wFV" secondAttribute="top" constant="407" id="4jl-nC-vE0"/>
-                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="trailing" secondItem="KLB-Sg-pQR" secondAttribute="trailing" id="5pJ-Q9-Bhx"/>
-                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="leading" secondItem="KLB-Sg-pQR" secondAttribute="leading" id="6Tu-aH-np6"/>
-                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="trailing" secondItem="H9z-AF-PqC" secondAttribute="trailing" id="6jd-fz-Ivf"/>
-                            <constraint firstItem="H9z-AF-PqC" firstAttribute="top" secondItem="KLB-Sg-pQR" secondAttribute="bottom" constant="-3" id="L3p-6Q-0WR"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="BcO-5Q-CxP" secondAttribute="bottom" constant="-14" id="MfE-3F-1g0"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="KLB-Sg-pQR" secondAttribute="leading" id="OHW-Aj-P8Y"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="KLB-Sg-pQR" secondAttribute="trailing" constant="8" id="TiI-uQ-M35"/>
-                            <constraint firstItem="H9z-AF-PqC" firstAttribute="top" secondItem="Lld-X9-Pef" secondAttribute="bottom" constant="184" id="XgC-Bm-mtg"/>
-                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="leading" secondItem="H9z-AF-PqC" secondAttribute="leading" id="am4-y5-lae"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="BcO-5Q-CxP" secondAttribute="leading" constant="20" id="bW2-nY-d9P"/>
-                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="leading" secondItem="S9t-Nj-wFV" secondAttribute="leading" id="c4w-OY-XLa"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="BcO-5Q-CxP" secondAttribute="trailing" constant="-20" id="cyY-Sx-wr9"/>
-                            <constraint firstItem="KLB-Sg-pQR" firstAttribute="top" secondItem="S9t-Nj-wFV" secondAttribute="top" id="lTR-ii-JDC"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="H9z-AF-PqC" secondAttribute="trailing" constant="-20" id="le9-HO-IBY"/>
-                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="top" secondItem="H9z-AF-PqC" secondAttribute="bottom" constant="-4" id="u6g-m9-pBe"/>
-                            <constraint firstAttribute="leadingMargin" secondItem="H9z-AF-PqC" secondAttribute="leading" constant="20" id="xus-CV-2P2"/>
+                            <constraint firstItem="26k-XW-XHH" firstAttribute="centerX" secondItem="S9t-Nj-wFV" secondAttribute="centerX" id="1h3-X8-2OZ"/>
+                            <constraint firstItem="H9z-AF-PqC" firstAttribute="top" secondItem="KLB-Sg-pQR" secondAttribute="bottom" constant="-3" id="4Uz-WU-UiF"/>
+                            <constraint firstItem="KLB-Sg-pQR" firstAttribute="leading" secondItem="S9t-Nj-wFV" secondAttribute="leadingMargin" constant="-20" id="Lno-eR-3KR"/>
+                            <constraint firstItem="Cay-4R-qpK" firstAttribute="centerX" secondItem="S9t-Nj-wFV" secondAttribute="centerX" id="PbV-e8-wVe"/>
+                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="top" secondItem="H9z-AF-PqC" secondAttribute="bottom" constant="-4" id="V6W-cM-al3"/>
+                            <constraint firstItem="KLB-Sg-pQR" firstAttribute="top" secondItem="Lld-X9-Pef" secondAttribute="bottom" constant="-64" id="XmQ-P0-rsC"/>
+                            <constraint firstItem="H9z-AF-PqC" firstAttribute="leading" secondItem="S9t-Nj-wFV" secondAttribute="leadingMargin" constant="-20" id="ZQx-MZ-2Rm"/>
+                            <constraint firstItem="H9z-AF-PqC" firstAttribute="centerX" secondItem="S9t-Nj-wFV" secondAttribute="centerX" id="aUl-e6-FLM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="KLB-Sg-pQR" secondAttribute="trailing" constant="-20" id="aye-hl-MOl"/>
+                            <constraint firstItem="H9z-AF-PqC" firstAttribute="width" secondItem="KLB-Sg-pQR" secondAttribute="width" id="fJn-cR-EDD"/>
+                            <constraint firstItem="KLB-Sg-pQR" firstAttribute="centerX" secondItem="S9t-Nj-wFV" secondAttribute="centerX" id="i9T-et-MQc"/>
+                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="width" secondItem="H9z-AF-PqC" secondAttribute="width" id="lJP-dQ-wjg"/>
+                            <constraint firstItem="95m-nu-ouK" firstAttribute="centerX" secondItem="S9t-Nj-wFV" secondAttribute="centerX" id="sBd-Lb-xqN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="BcO-5Q-CxP" secondAttribute="trailing" constant="-20" id="tNf-IU-kV0"/>
+                            <constraint firstItem="BcO-5Q-CxP" firstAttribute="leading" secondItem="S9t-Nj-wFV" secondAttribute="leadingMargin" constant="-20" id="vIN-wx-eVb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="H9z-AF-PqC" secondAttribute="trailing" constant="-20" id="wTd-HZ-5Xj"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JdJ-FL-iDl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-540" y="989"/>
+            <point key="canvasLocation" x="-507" y="931"/>
         </scene>
         <!--Payment View Controller-->
         <scene sceneID="c7V-dh-c17">
@@ -379,7 +376,7 @@ better when you’re sick, </string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CmG-5q-cnc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2804" y="251"/>
+            <point key="canvasLocation" x="2872" y="275"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="fH7-vB-tj2">
@@ -1382,9 +1379,9 @@ better when you’re sick, </string>
         <image name="edit_03" width="10" height="15"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8uX-SN-fne"/>
+        <segue reference="Luz-gv-VyQ"/>
+        <segue reference="uIr-l1-ZMH"/>
         <segue reference="YJy-MT-nq2"/>
         <segue reference="cxF-bW-Jns"/>
-        <segue reference="p4b-Ix-8MT"/>
     </inferredMetricsTieBreakers>
 </document>

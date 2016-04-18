@@ -45,16 +45,16 @@ class ViewController: UIViewController {
         //, FBSDKLoginButtonDelegate
         
         //ITEMS TO ADD TO FIREBASE
-        let item = ["0": ["name": "coke", "price": "1.99", "type": "drink", "category": "hangover"], "1": ["name": "water", "price": "0.99", "type": "drink", "category": "hangover"], "2": ["name": "chips", "price": "3.99", "type": "snack", "category": "hangover"], "3": ["name": "gatorade", "price": "0.99", "type": "drink", "category": "hangover"], "4": ["name": "gatorade", "price": "1.99", "type": "drink", "category": "sick"], "5": ["name": "ice cream", "price": "4.99", "type": "snack", "category": "sick"], "6": ["name": "ice cream", "price": "4.99", "type": "snack", "category": "breakup"], "7": ["name": "lemonade", "price": "3.99", "type": "drink", "category": "breakup"]]
+        //let item = ["0": ["name": "coke", "price": "1.99", "type": "drink", "category": "hangover"], "1": ["name": "water", "price": "0.99", "type": "drink", "category": "hangover"], "2": ["name": "chips", "price": "3.99", "type": "snack", "category": "hangover"], "3": ["name": "gatorade", "price": "0.99", "type": "drink", "category": "hangover"], "4": ["name": "gatorade", "price": "1.99", "type": "drink", "category": "sick"], "5": ["name": "ice cream", "price": "4.99", "type": "snack", "category": "sick"], "6": ["name": "ice cream", "price": "4.99", "type": "snack", "category": "breakup"], "7": ["name": "lemonade", "price": "3.99", "type": "drink", "category": "breakup"]]
         //ADDING TO FIREBASE
-        refPATH.setValue(item, withCompletionBlock: {
+        /*refPATH.setValue(item, withCompletionBlock: {
             (error:NSError?, ref:Firebase!) in
             if (error != nil) {
                 print("Data could not be saved.")
             } else {
                 print("Data saved successfully!")
             }
-        })
+        })*/
 
         
         super.viewDidLoad()
@@ -182,7 +182,7 @@ class ViewController: UIViewController {
                                         let usersRef = self.refAUTH.childByAppendingPath("users/uid/" + authData.uid)
                                         let usertest = ["email": emailName, "uid": authData.uid]
                                         //ADDING EMAIL, UID TO FIREBASE
-                                        usersRef.setValue(usertest, withCompletionBlock: {
+                                        usersRef.updateChildValues(usertest, withCompletionBlock: {
                                             (error:NSError?, ref:Firebase!) in
                                             if (error != nil) {
                                                 print("Data could not be saved.")
