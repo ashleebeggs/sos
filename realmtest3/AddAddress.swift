@@ -11,10 +11,15 @@ import RealmSwift
 import CoreLocation
 import Firebase
 
+protocol myUpdateProtocol{
+    func sendBackNewAddress(newAddress: String)
+    
+}
+
 class AddAddress: UIViewController,CLLocationManagerDelegate {
     var locationManager: CLLocationManager!
     let ref = Firebase(url: "https://sosapp2.firebaseio.com")
-
+    var myUpdatedelegate: myUpdateProtocol?
     @IBOutlet weak var zipField: UITextField!
     @IBOutlet weak var stateField: UITextField!
     @IBOutlet weak var cityField: UITextField!
@@ -69,6 +74,7 @@ class AddAddress: UIViewController,CLLocationManagerDelegate {
     }
     
     @IBAction func saveNewAddress(sender: AnyObject) {
+        
          ref.observeAuthEventWithBlock({ authData in
         if authData != nil {
             print("working")
@@ -77,6 +83,19 @@ class AddAddress: UIViewController,CLLocationManagerDelegate {
         
             }//close else
         })
+        
+        if zipField.text == "" || stateField.text == "" || cityField.text == "" || streetField.text == ""{
+            //ALERT IF NOT ALL THE INFO IS ENTERED
+            let alertController = UIAlertController(title: "Details", message: "Please fill out the full address", preferredStyle: .Alert)
+            
+            // Create the actions
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                UIAlertAction in
+            }
+            
+            // Add the actions
+            alertController.addAction(okAction)
+        }
         
         let addAddressNew = Address()
         addAddressNew.street = streetField.text!
@@ -91,10 +110,14 @@ class AddAddress: UIViewController,CLLocationManagerDelegate {
             
         let usersRef = self.ref.childByAppendingPath("users/uid/" + authData.uid + "/address")
         let userlocation = ["address": ["street": self.streetField.text!, "city": self.cityField.text!, "state": self.stateField.text!, "zipcode": self.zipField.text!]]
-        usersRef.setValue(userlocation)
+        let post1Ref = usersRef.childByAutoId()
+        post1Ref.setValue(userlocation)
             })
+        myUpdatedelegate?.sendBackNewAddress(addAddressNew.street)
         self.dismissViewControllerAnimated(true, completion: nil)
         print(addAddressNew)
     }
+    
+    
    
 }

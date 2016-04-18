@@ -202,7 +202,18 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 realm.add(myItemsRealm)
             }
         } catch {
-            print("Something went wrong!")
+            
+            //ALERT IF ERROR
+            let alertController = UIAlertController(title: "Error", message: "Couldn't add item to your cart :(", preferredStyle: .Alert)
+            
+            // Create the actions
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                UIAlertAction in
+            }
+            
+            // Add the actions
+            alertController.addAction(okAction)
+            
         }//close realm
         
         //FILTERING LIST
@@ -238,7 +249,18 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                         realm.delete(deletedNotifications)
                     }
                 } catch {
-                    print("Something went wrong!")
+                    
+                    //ALERT IF ERROR
+                    let alertController = UIAlertController(title: "Error", message: "Error trying to remove item from your cart", preferredStyle: .Alert)
+                    
+                    // Create the actions
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                        UIAlertAction in
+                    }
+                    
+                    // Add the actions
+                    alertController.addAction(okAction)
+                    
                 }//close realm
                 
                 datasource2 = realm.objects(MyItemsRealm).filter(filterMyItemsRealm)

@@ -89,7 +89,7 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 self.realm.delete(toDelete)
                             }
                         } catch {
-                            print("Something went wrong!")
+                            print("Couldn't remove phone data")
                         }//close realm
                         
                         
@@ -102,7 +102,18 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
                                 self.realm.add(phone)
                             }
                         } catch {
-                            print("Something went wrong!")
+                            
+                            //ALERT IF ERROR
+                            let alertController = UIAlertController(title: "Error", message: "Couldn't save your number :(", preferredStyle: .Alert)
+                            
+                            // Create the actions
+                            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                UIAlertAction in
+                            }
+                            
+                            // Add the actions
+                            alertController.addAction(okAction)
+                            
                         }//close realm
                     }//close phone.phone
                     else{
@@ -148,13 +159,14 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
             alertController.addAction(okAction)
             
             // Present the controller
+        
             self.presentViewController(alertController, animated: true, completion: nil)
         }//close if
 
     }
     
     
-    @IBAction func address(sender: AnyObject) {
+    /*@IBAction func address(sender: AnyObject) {
         //SHOWING THE ADDRESSES SAVED IN REALM
         let showAddressController = storyboard?.instantiateViewControllerWithIdentifier("showViewController") as! ShowAddress
         // ASSIGNING THE DELEGATE TO PASS DATA BACK
@@ -162,7 +174,7 @@ class ConfirmViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         self.presentViewController(showAddressController, animated: true, completion: nil)
         
-    }
+    }*/
     func getData(){
         //FILTERING FOR HANGOVER ITEMS IN REALM
         let test = NSPredicate(format: "category = 'hangover'")

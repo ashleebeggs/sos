@@ -14,7 +14,7 @@ protocol myProtocol{
     
 }
 
-class ShowAddress: UIViewController, UITableViewDelegate, UITableViewDataSource, SwiftAlertViewDelegate {
+class ShowAddress: UIViewController, UITableViewDelegate, UITableViewDataSource, SwiftAlertViewDelegate, myUpdateProtocol {
     //@IBOutlet weak var TableField: UITableView!
     var datasource : Results<Address>!
     var mydelegate: myProtocol?
@@ -25,6 +25,13 @@ class ShowAddress: UIViewController, UITableViewDelegate, UITableViewDataSource,
     @IBOutlet weak var AddressField: UITableView!
     @IBOutlet var modalView: UIView!
     
+    @IBAction func AddressFunction(sender: AnyObject) {
+        //SHOWING THE ADDRESSES SAVED IN REALM
+        let showAddressController = storyboard?.instantiateViewControllerWithIdentifier("addAddressController") as! AddAddress
+        // ASSIGNING THE DELEGATE TO PASS DATA BACK
+        showAddressController.myUpdatedelegate = self
+        self.presentViewController(showAddressController, animated: true, completion: nil)
+    }
     @IBAction func sendBack(sender: AnyObject) {
        self.dismissViewControllerAnimated(true, completion: nil)
     }
@@ -42,7 +49,7 @@ class ShowAddress: UIViewController, UITableViewDelegate, UITableViewDataSource,
         AddressField.dataSource = self
         AddressField.delegate = self
         
-        self.AddressField.reloadData()
+        //self.AddressField.reloadData()
     }
     
     func getData(){
@@ -87,11 +94,57 @@ class ShowAddress: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        //let cell = self.AddressField?.dequeueReusableCellWithIdentifier("AddressCellID") as! ShowAddressItemRow
+        
+        let deletedValue = datasource[indexPath.row].street
+        //IF DELETING ROW
+        if editingStyle == .Delete {
+            //FILTER
+            let filterBroadMyItemsRealm = NSPredicate(format: "street = '" + deletedValue + "'")
+            let deletedNotifications = realm.objects(Address).filter(filterBroadMyItemsRealm)
+            //REMOVING DELETED ITEMS FROM REALM
+            do {
+                try realm.write() {
+                    realm.delete(deletedNotifications)
+                }
+            } catch {
+                
+                //ALERT IF ERROR
+                let alertController = UIAlertController(title: "Error", message: "Couldn't delete this address", preferredStyle: .Alert)
+                
+                // Create the actions
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                    UIAlertAction in
+                }
+                
+                // Add the actions
+                alertController.addAction(okAction)
+            
+
+            }//close realm
+            
+            self.AddressField.reloadData()
+            
+        } else {}
+    }//close tableview
+
+    
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let itemList = datasource[indexPath.row].street
+        //let itemList = datasource[indexPath.row].street
         //holder.append(itemList)
         
         mydelegate?.sendBackChoice(datasource[indexPath.row].street)
+        
+    }
+
+
+
+    func sendBackNewAddress(newAddress: String){
+        //DISPLAY THE SELECTED ADDRESS CHOSEN FROM SHOW ADDRESS VIEW CONTROLLER
+        print(newAddress, "here i am")
+        self.AddressField.reloadData()
+        //addressLabel.text = newAddress
         
     }
     

@@ -119,7 +119,7 @@ class ViewController: UIViewController {
                                                 self.realm.delete(toDeleteList)
                                             }
                                         } catch {
-                                            print("Something went wrong!")
+                                            print("Couldn't clear out items list")
                                         }//close realm
                                         
                                         let profile = Items()
@@ -130,7 +130,7 @@ class ViewController: UIViewController {
                                                  self.realm.delete(toDelete)
                                             }
                                         } catch {
-                                            print("Something went wrong!")
+                                            print("Couldn't clear items")
                                         }//close realm
                                         
                                         profile.fbemail = emailName as! String
@@ -141,7 +141,16 @@ class ViewController: UIViewController {
                                                  self.realm.add(profile)
                                             }
                                         } catch {
-                                            print("Something went wrong!")
+                                            //ALERT IF ERROR
+                                            let alertController = UIAlertController(title: "Error", message: "There was an error saving your profile", preferredStyle: .Alert)
+                                            
+                                            // Create the actions
+                                            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                                UIAlertAction in
+                                            }
+                                            
+                                            // Add the actions
+                                            alertController.addAction(okAction)
                                         }//close realm
 
                                         //ASSIGNING FIREBASE OBJECTS TO VARIABLES
@@ -163,7 +172,18 @@ class ViewController: UIViewController {
                                                     self.realm.add(ItemsRealm)
                                                 }
                                             } catch {
-                                                print("Something went wrong!")
+                                               
+                                                //ALERT IF ERROR
+                                                let alertController = UIAlertController(title: "Error", message: "There was an error syncing data :(", preferredStyle: .Alert)
+                                                
+                                                // Create the actions
+                                                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                                    UIAlertAction in
+                                                }
+                                                
+                                                // Add the actions
+                                                alertController.addAction(okAction)
+                                                
                                             }//close realm
                                             
                                             //IF THERE IS NO DATA IN FIREBASE
@@ -182,7 +202,8 @@ class ViewController: UIViewController {
                                         let usersRef = self.refAUTH.childByAppendingPath("users/uid/" + authData.uid)
                                         let usertest = ["email": emailName, "uid": authData.uid]
                                         //ADDING EMAIL, UID TO FIREBASE
-                                        usersRef.updateChildValues(usertest, withCompletionBlock: {
+                                         let post2Ref = usersRef.childByAutoId()
+                                        post2Ref.setValue(usertest, withCompletionBlock: {
                                             (error:NSError?, ref:Firebase!) in
                                             if (error != nil) {
                                                 print("Data could not be saved.")
@@ -200,7 +221,7 @@ class ViewController: UIViewController {
                                                 self.realm.delete(toDelete)
                                             }
                                         } catch {
-                                            print("Something went wrong!")
+                                            print("couldn't clear out items realm")
                                         }//close realm
                                         
                                         profile.fbemail = emailName as! String
@@ -211,7 +232,18 @@ class ViewController: UIViewController {
                                                 self.realm.add(profile)
                                             }
                                         } catch {
-                                            print("Something went wrong!")
+                                            
+                                            //ALERT IF ERROR
+                                            let alertController = UIAlertController(title: "Error", message: "There was a problem logging you in :(", preferredStyle: .Alert)
+                                            
+                                            // Create the actions
+                                            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                                UIAlertAction in
+                                            }
+                                            
+                                            // Add the actions
+                                            alertController.addAction(okAction)
+                                            
                                         }//close realm
                                         
                                         
@@ -224,7 +256,7 @@ class ViewController: UIViewController {
                                                 self.realm.delete(toDeleteList)
                                             }
                                         } catch {
-                                            print("Something went wrong!")
+                                            print("Couldn't clear out itemlist")
                                         }//close realm
                                         
                                         //ASSOCIATING FIREBASE OBJECTS WITH VARIABLES
@@ -246,7 +278,18 @@ class ViewController: UIViewController {
                                                     self.realm.add(ItemsRealm)
                                                 }
                                             } catch {
-                                                print("Something went wrong!")
+                                                
+                                                //ALERT IF ERROR
+                                                let alertController = UIAlertController(title: "Error", message: "There was an error while fetching goodies", preferredStyle: .Alert)
+                                                
+                                                // Create the actions
+                                                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                                    UIAlertAction in
+                                                }
+                                                
+                                                // Add the actions
+                                                alertController.addAction(okAction)
+                                                
                                             }//close realm
                                            
                                             //IF THERE IS NO DATA
@@ -256,7 +299,7 @@ class ViewController: UIViewController {
                                             
                                         })//close observeeventtype
                                         //GO TO NEXT PAGE
-                                       self.performSegueWithIdentifier("showNew", sender: self)
+                                       self.performSegueWithIdentifier("onboard", sender: self)
                                         
                                     }// close else
                                     
@@ -287,7 +330,7 @@ class ViewController: UIViewController {
                            self.realm.delete(toDeleteList)
                         }
                     } catch {
-                        print("Something went wrong!")
+                        print("Couldn't clear out item list")
                     }//close realm
                     
                     //GETTING FIREBASE ITEMS SEND TO REALM ITEMSLIST
@@ -309,7 +352,18 @@ class ViewController: UIViewController {
                                 self.realm.add(ItemsRealm)
                             }
                         } catch {
-                            print("Something went wrong!")
+                            
+                            //ALERT IF ERROR
+                            let alertController = UIAlertController(title: "Error", message: "There was a problem while fetching data", preferredStyle: .Alert)
+                            
+                            // Create the actions
+                            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                UIAlertAction in
+                            }
+                            
+                            // Add the actions
+                            alertController.addAction(okAction)
+                            
                         }//close realm
                         
                         //IF THERE IS NO DATA
@@ -330,7 +384,7 @@ class ViewController: UIViewController {
                             self.realm.delete(toDeleteh)
                         }
                     } catch {
-                        print("Something went wrong!")
+                        print("Couldn't clear hangover data")
                     }//close realm
                     
                     
@@ -353,7 +407,18 @@ class ViewController: UIViewController {
                                self.realm.add(myItemsRealm)
                             }
                         } catch {
-                            print("Something went wrong!")
+                            
+                            //ALERT IF ERROR
+                            let alertController = UIAlertController(title: "Error", message: "There was an error fetching your hangover data :/", preferredStyle: .Alert)
+                            
+                            // Create the actions
+                            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                UIAlertAction in
+                            }
+                            
+                            // Add the actions
+                            alertController.addAction(okAction)
+                            
                         }//close realm
                         //IF NO DATA
                         if snap.value is NSNull {
@@ -374,7 +439,7 @@ class ViewController: UIViewController {
                             self.realm.delete(toDeletes)
                         }
                     } catch {
-                        print("Something went wrong!")
+                        print("Couldn't clear out sick realm")
                     }//close realm
                    
 
@@ -399,7 +464,18 @@ class ViewController: UIViewController {
                                 self.realm.add(mySickItemsRealm)
                             }
                         } catch {
-                            print("Something went wrong!")
+                            
+                            //ALERT IF ERROR
+                            let alertController = UIAlertController(title: "Error", message: "There was an error fetching your sick data :/", preferredStyle: .Alert)
+                            
+                            // Create the actions
+                            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                UIAlertAction in
+                            }
+                            
+                            // Add the actions
+                            alertController.addAction(okAction)
+                            
                         }//close realm
                         
                         //NO SICK ITEMS
@@ -421,7 +497,7 @@ class ViewController: UIViewController {
                             self.realm.delete(toDeleteb)
                         }
                     } catch {
-                        print("Something went wrong!")
+                        print("Couldn't clear bu realm")
                     }//close realm
                     
                     
@@ -446,7 +522,18 @@ class ViewController: UIViewController {
                                 self.realm.add(myBUItemsRealm)
                             }
                         } catch {
-                            print("Something went wrong!")
+                            
+                            //ALERT IF ERROR
+                            let alertController = UIAlertController(title: "Error", message: "There was an error fetching your Breakup data :/", preferredStyle: .Alert)
+                            
+                            // Create the actions
+                            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                                UIAlertAction in
+                            }
+                            
+                            // Add the actions
+                            alertController.addAction(okAction)
+                            
                         }//close realm
 
                         //NO DATA

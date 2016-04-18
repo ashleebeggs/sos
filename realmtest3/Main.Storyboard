@@ -1075,7 +1075,7 @@
                                 <rect key="frame" x="556" y="39" width="30" height="30"/>
                                 <state key="normal" title="Add"/>
                                 <connections>
-                                    <segue destination="2zD-hy-xtN" kind="presentation" id="eSB-ms-zxk"/>
+                                    <action selector="AddressFunction:" destination="BnX-Nu-xQO" eventType="touchUpInside" id="A4o-Rn-8mj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwU-zW-IqG">
@@ -1106,7 +1106,7 @@
         <!--Add Address-->
         <scene sceneID="NTh-jp-Yc7">
             <objects>
-                <viewController id="2zD-hy-xtN" customClass="AddAddress" customModule="realmtest3" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addAddressController" id="2zD-hy-xtN" customClass="AddAddress" customModule="realmtest3" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qNg-0k-1D6"/>
                         <viewControllerLayoutGuide type="bottom" id="ZRB-gA-djs"/>
